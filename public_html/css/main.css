@@ -40,7 +40,6 @@ body{
     background: url('../img/pokemonPartyIcon.png') no-repeat;
     width: 93px;
     height: 93px;
-    /*border: 1px solid #ff0080;*/
     float: left;
     margin: 2px;
 }
