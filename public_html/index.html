@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Pokemon Let's Play Team and Badge Display - OBS CLR Browser</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/libs/jquery-2.2.2.min.js"></script>
+        <script src="js/libs/p5.min.js"></script>
+        <script src="js/pokemon.js"></script>
+        <link href="css/main.css" rel='stylesheet'/>
+        <script>
+
+            function setup() {
+
+            }
+            var currentTeam = {
+                pokemon1: "",
+                pokemon2: "",
+                pokemon3: "",
+                pokemon4: "",
+                pokemon5: "",
+                pokemon6: ""
+            };
+
+            var currentBadges = {
+                badge1: "",
+                badge2: "",
+                badge3: "",
+                badge4: "",
+                badge5: "",
+                badge6: "",
+                badge7: "",
+                badge8: ""
+            };
+            /* Badge selection functionality */
+            $(document).ready(function () {
+
+                $("#B1").change(function () {
+                    $("#badge1").attr("src", $(this).val());
+                    currentBadges.badge1 = $(this).val();
+                });
+                $("#B2").change(function () {
+                    $("#badge2").attr("src", $(this).val());
+                    currentBadges.badge2 = $(this).val();
+                });
+                $("#B3").change(function () {
+                    $("#badge3").attr("src", $(this).val());
+                    currentBadges.badge3 = $(this).val();
+                });
+                $("#B4").change(function () {
+                    $("#badge4").attr("src", $(this).val());
+                    currentBadges.badge4 = $(this).val();
+                });
+                $("#B5").change(function () {
+                    $("#badge5").attr("src", $(this).val());
+                    currentBadges.badge5 = $(this).val();
+                });
+                $("#B6").change(function () {
+                    $("#badge6").attr("src", $(this).val());
+                    currentBadges.badge6 = $(this).val();
+                });
+                $("#B7").change(function () {
+                    $("#badge7").attr("src", $(this).val());
+                    currentBadges.badge7 = $(this).val();
+                });
+                $("#B8").change(function () {
+                    $("#badge8").attr("src", $(this).val());
+                    currentBadges.badge8 = $(this).val();
+                });
+
+                /* Party selection functionality */
+
+                /* Fill the selects with pokemon data */
+                var pokeFill = function () {
+                    for (var i = 0, len = pokemon.length; i < len; i++) {
+                        $('<option class="' + pokemon[i].id + '" value="img/dex/' + pokemon[i].id + '.png">' + pokemon[i].id + '.&nbsp;' + pokemon[i].identifier + '</option>').appendTo('.pkmSelect');
+                    }
+                };
+                pokeFill();
+
+
+                /* party selection */
+                $("#P1").change(function () {
+                    $("#pokemon1").attr("src", $(this).val());
+                    currentTeam.pokemon1 = $(this).val();
+                    console.log(currentTeam.pokemon1);
+                });
+                $("#P2").change(function () {
+                    $("#pokemon2").attr("src", $(this).val());
+                    currentTeam.pokemon2 = $(this).val();
+                });
+                $("#P3").change(function () {
+                    $("#pokemon3").attr("src", $(this).val());
+                    currentTeam.pokemon3 = $(this).val();
+                });
+                $("#P4").change(function () {
+                    $("#pokemon4").attr("src", $(this).val());
+                    currentTeam.pokemon4 = $(this).val();
+                });
+                $("#P5").change(function () {
+                    $("#pokemon5").attr("src", $(this).val());
+                    currentTeam.pokemon5 = $(this).val();
+                });
+                $("#P6").change(function () {
+                    $("#pokemon6").attr("src", $(this).val());
+                    currentTeam.pokemon6 = $(this).val();
+                });
+
+                /* store data for use in obs clr browser */
+                $("#saveTeam").click(function () {
+                    saveJSONObject(currentTeam, 'team.json');
+                });
+                $('#saveBadges').click(function(){
+                    saveJSONObject(currentBadges, 'badges.json');
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id='bodyWrap'>
+            <div id='badgeView'>
+                <!--- The containing div for all badges --->
+                <div class='badge' id='b1'>
+                    <img src="" id='badge1' alt=""/>
+                </div>
+                <div class='badge' id='b2'>
+                    <img src="" id='badge2' alt=""/>
+                </div>
+                <div class='badge' id='b3'>
+                    <img src="" id='badge3' alt=""/>
+                </div>
+                <div class='badge' id='b4'>
+                    <img src="" id='badge4' alt=""/>
+                </div>
+                <div class='badge' id='b5'>
+                    <img src="" id='badge5' alt=""/>
+                </div>
+                <div class='badge' id='b6'>
+                    <img src="" id='badge6' alt=""/>
+                </div>
+                <div class='badge' id='b7'>
+                    <img src="" id='badge7' alt=""/>
+                </div>
+                <div class='badge' id='b8'>
+                    <img src="" id='badge8' alt=""/>
+                </div>
+            </div>
+            <div id='partyView'>
+                <!--- The containing div for the party pokemon --->
+                <div class='party'>
+                    <img src="" id='pokemon1'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon2'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon3'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon4'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon5'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon6'>
+                </div>
+            </div>
+            <div id='opts'>
+                <div>
+                    <h1>Badge Selectors</h1>
+                    <select id='B1'>
+                        <option>Badge 1</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <select id='B2'>
+                        <option>Badge 2</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <select id='B3'>
+                        <option>Badge 3</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <select id='B4'>
+                        <option>Badge 4</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <select id='B5'>
+                        <option>Badge 5</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <select id='B6'>
+                        <option>Badge 6</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <select id='B7'>
+                        <option>Badge 7</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <select id='B8'>
+                        <option>Badge 8</option>
+                        <optgroup label="Kanto">
+                            <option value="img/badges/gen1/1.png">Boulder</option>
+                            <option value="img/badges/gen1/2.png">Cascade</option>
+                            <option value="img/badges/gen1/3.png">Thunder</option>
+                            <option value="img/badges/gen1/4.png">Rainbow</option>
+                            <option value="img/badges/gen1/5.png">Soul</option>
+                            <option value="img/badges/gen1/6.png">Marsh</option>
+                            <option value="img/badges/gen1/7.png">Volcano</option>
+                            <option value="img/badges/gen1/8.png">Earth</option>
+                        </optgroup>
+                        <optgroup label="Johto">
+                            <option value="img/badges/gen2/1.png">Zephyr</option>
+                            <option value="img/badges/gen2/2.png">Hive</option>
+                            <option value="img/badges/gen2/3.png">Plain</option>
+                            <option value="img/badges/gen2/4.png">Fog</option>
+                            <option value="img/badges/gen2/5.png">Storm</option>
+                            <option value="img/badges/gen2/6.png">Mineral</option>
+                            <option value="img/badges/gen2/7.png">Glacier</option>
+                            <option value="img/badges/gen2/8.png">Rising</option>
+                        </optgroup>
+                        <optgroup label="Hoenn">
+                            <option value="img/badges/gen3/1.png">Stone</option>
+                            <option value="img/badges/gen3/2.png">Knuckle</option>
+                            <option value="img/badges/gen3/3.png">Dynamo</option>
+                            <option value="img/badges/gen3/4.png">Heat</option>
+                            <option value="img/badges/gen3/5.png">Balance</option>
+                            <option value="img/badges/gen3/6.png">Feather</option>
+                            <option value="img/badges/gen3/7.png">Mind</option>
+                            <option value="img/badges/gen3/8.png">Rain</option>
+                        </optgroup>
+                        <optgroup label="Sinnoh">
+                            <option value="img/badges/gen4/1.png">Coal</option>
+                            <option value="img/badges/gen4/2.png">Forest</option>
+                            <option value="img/badges/gen4/3.png">Cobble</option>
+                            <option value="img/badges/gen4/4.png">Fen</option>
+                            <option value="img/badges/gen4/5.png">Relic</option>
+                            <option value="img/badges/gen4/6.png">Mine</option>
+                            <option value="img/badges/gen4/7.png">Icicle</option>
+                            <option value="img/badges/gen4/8.png">Beacon</option>
+                        </optgroup>
+                        <optgroup label="Unova">
+                            <option value="img/badges/gen5/1.png">Trio</option>
+                            <option value="img/badges/gen5/2.png">Basic</option>
+                            <option value="img/badges/gen5/3.png">Insect</option>
+                            <option value="img/badges/gen5/4.png">Bolt</option>
+                            <option value="img/badges/gen5/5.png">Quake</option>
+                            <option value="img/badges/gen5/6.png">Jet</option>
+                            <option value="img/badges/gen5/7.png">Freeze</option>
+                            <option value="img/badges/gen5/8.png">Legend</option>
+                        </optgroup>
+                    </select>
+                    <button id="saveBadges">Save your team</button>
+                </div>
+                <div>
+                    <h1>Party Selectors</h1>
+                    <select class="pkmSelect" id='P1'>
+                        <option>First Pokemon</option>
+                    </select>
+                    <select class="pkmSelect" id='P2'>
+                        <option>Second Pokemon</option>
+                    </select>
+                    <select class="pkmSelect" id='P3'>
+                        <option>Third Pokemon</option>
+                    </select>
+                    <select class="pkmSelect" id='P4'>
+                        <option>Fourth Pokemon</option>
+                    </select>
+                    <select class="pkmSelect" id='P5'>
+                        <option>Fifth Pokemon</option>
+                    </select>
+                    <select class="pkmSelect" id='P6'>
+                        <option>Sixth Pokemon</option>
+                    </select>
+                </div>
+
+                <button id="saveTeam">Save your team</button>
+            </div>
+        </div>
+    </body>
+</html>

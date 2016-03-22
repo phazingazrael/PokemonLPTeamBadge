@@ -1,0 +1,46 @@
+/* Main layout styling */
+body{
+    overflow:hidden;
+    background:transparent;
+    margin:0px;
+    padding:0px;
+}
+
+#bodyWrap{
+    width: 380px;
+}
+
+/* Badge Styling */
+
+#badgeView{
+    width:168px;
+    margin: 0px auto;
+}
+
+.badge{
+    width:36px;
+    height:36px;
+    float: left;
+    margin: 2px;
+    background: url('../img/badgeIcon.png');
+}
+
+.badge img{
+    margin:2px;
+}
+
+/* Party Styling */
+
+#partyView {
+    width: 198px;
+    margin: 0px auto;
+}
+
+.party{
+    background: url('../img/pokemonPartyIcon.png') no-repeat;
+    width: 93px;
+    height: 93px;
+    /*border: 1px solid #ff0080;*/
+    float: left;
+    margin: 2px;
+}

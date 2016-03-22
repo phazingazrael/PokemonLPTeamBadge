@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Pokemon Let's Play Team and Badge Display - OBS CLR Browser</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/libs/jquery-2.2.2.min.js"></script>
+        <script src="js/libs/p5.min.js"></script>
+        <link href="css/main.css" rel='stylesheet'/>
+        <script>
+
+            function ref()
+            {
+                $.getJSON('load/team.json', function (team) {
+                    $('#pokemon1').attr('src', team.pokemon1);
+                    $('#pokemon2').attr('src', team.pokemon2);
+                    $('#pokemon3').attr('src', team.pokemon3);
+                    $('#pokemon4').attr('src', team.pokemon4);
+                    $('#pokemon5').attr('src', team.pokemon5);
+                    $('#pokemon6').attr('src', team.pokemon6);
+                });
+                $.getJSON('load/badges.json', function(badges){
+                    $('#badge1').attr('src', badges.badge1);
+                    $('#badge2').attr('src', badges.badge2);
+                    $('#badge3').attr('src', badges.badge3);
+                    $('#badge4').attr('src', badges.badge4);
+                    $('#badge5').attr('src', badges.badge5);
+                    $('#badge6').attr('src', badges.badge6);
+                    $('#badge7').attr('src', badges.badge7);
+                    $('#badge8').attr('src', badges.badge8);
+                })
+            }
+            setInterval('ref()', 1000);
+        </script>
+    </head>
+    <body>
+        <div id='bodyWrap'>
+            <div id='badgeView'>
+                <!--- The containing div for all badges --->
+                <div class='badge' id='b1'>
+                    <img src="" id='badge1' alt=""/>
+                </div>
+                <div class='badge' id='b2'>
+                    <img src="" id='badge2' alt=""/>
+                </div>
+                <div class='badge' id='b3'>
+                    <img src="" id='badge3' alt=""/>
+                </div>
+                <div class='badge' id='b4'>
+                    <img src="" id='badge4' alt=""/>
+                </div>
+                <div class='badge' id='b5'>
+                    <img src="" id='badge5' alt=""/>
+                </div>
+                <div class='badge' id='b6'>
+                    <img src="" id='badge6' alt=""/>
+                </div>
+                <div class='badge' id='b7'>
+                    <img src="" id='badge7' alt=""/>
+                </div>
+                <div class='badge' id='b8'>
+                    <img src="" id='badge8' alt=""/>
+                </div>
+            </div>
+            <div id='partyView'>
+                <!--- The containing div for the party pokemon --->
+                <div class='party'>
+                    <img src="" id='pokemon1'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon2'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon3'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon4'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon5'>
+                </div>
+                <div class='party'>
+                    <img src="" id='pokemon6'>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
