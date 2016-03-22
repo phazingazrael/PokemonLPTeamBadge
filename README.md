@@ -1,4 +1,4 @@
-# # OBS CLR Browser Pokemon Let's Play assistant
+# OBS CLR Browser Pokemon Let's Play assistant
 
 I created this as something for myself to use in an upcoming Let's Play series, but seeing it's usefulness I wish to offer it to the community.
 
